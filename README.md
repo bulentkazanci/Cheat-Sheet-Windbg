@@ -45,5 +45,13 @@ A practical guide to analyze memory dumps of .Net applications by using Windbg.
 ### Command List
 ------
 
+- Evaluates given expression.
+
+`?`
+
+Example usage: `?e186fa28`
+
+- 
+
 
 
