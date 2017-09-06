@@ -9,7 +9,7 @@ A practical guide to analyze memory dumps of .Net applications by using Windbg.
 
 
 ### Memory Leak
-
+------
 
 #### 1. Check Finalizer Queue and Finalizer Thread
 
@@ -37,13 +37,13 @@ A practical guide to analyze memory dumps of .Net applications by using Windbg.
 
 
 ### Deadlock
-
+------
 
 
 
 
 ### Command List
-
+------
 
 
 
