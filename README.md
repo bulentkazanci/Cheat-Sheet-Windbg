@@ -11,27 +11,27 @@ A practical guide to analyze memory dumps of .Net applications by using Windbg.
 ### Memory Leak
 
 
-1. Check Finalizer Queue and Finalizer Thread
+#### 1. Check Finalizer Queue and Finalizer Thread
 
 - list all the objects in memory
 
-!dumpheap -stat
+`!dumpheap -stat`
 
 - Take the suspicious one. following command only gives addresses of objects of that type.
 
-!dumpheap -type [type of object] -short
+`!dumpheap -type [type of object] -short`
 
-- To see what keeps the reference to those objects run following command. the example below is valid for bytearray. find the one(above) waiting for finalizing
+- To see what keeps the reference to those objects run following command. the example below is valid for bytearray. Find the one(above) waiting for being finalized.
 
-.foreach(bytearr {!dumpheap -type System.Byte[] -short}){!gcroot bytearr; .echo - - - - - }
+`.foreach(bytearr {!dumpheap -type System.Byte[] -short}){!gcroot bytearr; .echo - - - - - }`
 
 - check the finalizer queue with following command. 
 
-!finalizerqueue
+`!finalizequeue`
 
 - If there are many objects waiting for finalizing analyze the finalizer thread stack. Switch the finalizer thread.
 
-!clrstack
+`!clrstack`
 
 2. 
 
