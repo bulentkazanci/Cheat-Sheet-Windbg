@@ -11,29 +11,85 @@ A practical guide to analyze memory dumps of .Net applications by using Windbg.
 ### Memory Leak
 ------
 
-#### 1. Check Finalizer Queue and Finalizer Thread
+#### 1. General Heap Check
+
+- Verify dump file. Make sure that heap is not corrupted.
+
+```
+!verifyheap
+```
+
+- Look at commited memory with following command. The best command to look at memory as whole.
+
+```
+!address -summary
+```
+
+Sections in result
+  - Image: memory used for executables and dlls.
+  - Stack: stack space for threads.
+  - https://blogs.msdn.microsoft.com/webtopics/2010/04/02/address-summary-explained/
+
+
+
+- Following command shows gc heap and loader heap usages. Look at the amount of space that heaps allocate.
+(Reminder: gcheap is collected by gc but loader heap is not. Loader heap is for static objects.) Make sure that both values are under certain size.
+
+```
+!eeheap
+```
+
+- Run following command to see full list of objects in memory(name, count, size etc.)
+
+```
+!dumpheap -stat
+```
+
+- If there is an object looking suspicious(having more size or count) dump that object.
+
+```
+!dumpheap -type [class name space]
+```
+
+- Pick the one allocationg more space than others and go to its details.
+
+```
+!do [address]
+```
+
+
+
+#### 2. Check Finalizer Queue and Finalizer Thread
 
 - list all the objects in memory
 
-`!dumpheap -stat`
+```
+!dumpheap -stat
+```
 
 - Take the suspicious one. following command only gives addresses of objects of that type.
 
-`!dumpheap -type [type of object] -short`
+```
+!dumpheap -type [type of object] -short
+```
 
 - To see what keeps the reference to those objects run following command. the example below is valid for bytearray. Find the one(above) waiting for being finalized.
 
-`.foreach(bytearr {!dumpheap -type System.Byte[] -short}){!gcroot bytearr; .echo - - - - - }`
+```
+.foreach(bytearr {!dumpheap -type System.Byte[] -short}){!gcroot bytearr; .echo - - - - - }
+```
 
 - check the finalizer queue with following command. 
 
-`!finalizequeue`
+```
+!finalizequeue
+```
 
 - If there are many objects waiting for finalizing analyze the finalizer thread stack. Switch the finalizer thread.
 
-`!clrstack`
-
-2. 
+```
+!clrstack
+```
 
 
 ### Deadlock
@@ -47,7 +103,9 @@ A practical guide to analyze memory dumps of .Net applications by using Windbg.
 
 - Evaluates given expression.
 
-`?`
+```
+?
+```
 
 Example usage: `?e186fa28`
 
