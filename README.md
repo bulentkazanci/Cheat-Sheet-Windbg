@@ -2,10 +2,20 @@
 A practical guide to analyze memory dumps of .Net applications by using Windbg.
 
 
-
+* [Environment](#environment)
 * [Memory Leak](#memory-leak)
 * [Deadlocks](#deadlock)
 * [Command List](#command-list)
+
+
+### Environment
+
+- Install SOS.dll(Son of strike) to same path with WinDBG.
+- Install psscor4
+- Set symbol path 
+  - srv*d:\dumps\symbols*http://msdl.microsoft.com/download/symbols
+- Run command of .loadby sos clr to load sos.
+
 
 
 ### Memory Leak
@@ -105,11 +115,90 @@ Sections in result
 
 ```
 ?
+Example usage: `?e186fa28`
 ```
 
-Example usage: `?e186fa28`
+- Gives list of threads.
+```
+!threads
+```
+- Switches thread context to specified id's context.
+```
+~[id]s
+~5s
+```
+- Gives detailed information about that thread pool.
+```
+!threadpool
+```
+- Check this if you look for high cpu usage. You can see which thread works for how long.
+```
+!runaway
+```
+- Lists all .net call stacks. Lists contexts of all threads.
+```
+!eestack
+```
+- Lists exceptions of current thread.
+```
+!printexception
+```
+- Shows usage statistics of heaps. Heap count equals to core counts.
+```
+!heapstat
+```
+- If you do not dispose object, it is alive during 2 GC process. If you dispose, it is alive during 1 GC process.
+```
+!fq(finalizer queue)
+```
+- Kernel time: cpu operations like siscall, interrupt, tcp call etc.
+  User time: cpu operations like read, multiplication.
+```
+.time
+```
+- First command related to memory.
+```
+!address -summary
+```
+- Gives process info like computer name. Process environment block.
+```
+!peb
+```
+- Gives managed heap usage.(.net heap)
+  Size of heaps should be nearly equal to each other.
+```
+!eeheap -gc
+```
+- Lists all objects on heap.
+```
+!dumpheap -stat
+```
+- Gives address list of specified type of objects.
+```
+!dumpheap -mt [address]
+```
+- Lists the objects refers to specified address.
+  If it says that there is no unique root found, the object will be collected in next gc cycle.
+```
+!gcroot [address]
+```
+- Gives details of method.
+```
+!dumpmd
+```
+- Gives call stack of current thread.
+```
+!clrstack
+```
+- Shows thread locks if there is.
+```
+!syncblk
+```
+- Lists modules loaded by application.
+```
+lm
+```
 
-- 
 
 
 
