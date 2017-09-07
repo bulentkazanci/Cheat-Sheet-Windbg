@@ -6,7 +6,7 @@ A practical guide to analyze memory dumps of .Net applications by using Windbg.
 * [Memory Leak](#memory-leak)
 * [Deadlocks](#deadlock)
 * [Command List](#command-list)
-
+* [Articles](#articles)
 
 ### Environment
 
@@ -198,7 +198,9 @@ Example usage: `?e186fa28`
 ```
 lm
 ```
+### Articles
+------
 
-
+- [Guides from Tess Fernandez](https://blogs.msdn.microsoft.com/tess/2007/06/08/blog-post-index/)
 
 
