@@ -3,6 +3,9 @@ A practical guide to analyze memory dumps of .Net applications by using Windbg.
 
 
 * [Environment](#environment)
+* [Dump Generation](#dump-generation)
+  * [Manual Dump Generation](#manual-dump-generation)
+  * [Automatic Dump Generation](#automatic-dump-generation)
 * [Memory Leak](#memory-leak)
   * [General Heap Check](#user-content-1-general-heap-check)
   * [Check Finalizer Queue and Finalizer Thread](#user-content-2-check-finalizer-queue-and-finalizer-thread)
@@ -18,6 +21,50 @@ A practical guide to analyze memory dumps of .Net applications by using Windbg.
   - srv*d:\dumps\symbols*http://msdl.microsoft.com/download/symbols
 - Run command of .loadby sos clr to load sos.
 
+
+### Dump Generation
+------
+
+#### 1. Manual Dump Generation
+
+There are multiple manners to generate dumps ranging from task manager and debug diagnostic. I prefer to use procdump for manual generation. To generate dump manually, follow instructions below.
+
+- Download procdump from this [link](https://docs.microsoft.com/en-us/sysinternals/downloads/procdump).
+- Run command prompt as administrator and swtich the path of procdump. Following is an example from my local.
+```
+cd \BrkDev\Procdump
+```
+- Procdump provides a variety of parameters which change characteristic of generated dump. List of parameters can be seen in the link above. I will use following command to get full memory dump of all process memory.
+```
+procdump -ma [process identifier] [folder path]
+```
+
+
+#### 2. Automatic Dump Generation
+
+Sometimes it is not possible to find a change to collect dump before application crashes. Therefore, Windows Error Reporting can be configures so that dumps can be collected in a situation of crash; however, applications that handles their own custom crash reporting are not supported by this feature. Ultimately, in order to collect dumps automatically, follow the steps below.
+
+- Open Registery Editor(Regedit).
+- Go to following record.
+```
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\Windows Error Reporting\LocalDumps
+```
+- If the record does not exist, create it. Otherwise, check the values of following parameters.
+
+| Value           |           Description                          | Type         | Default Value           |
+| -------------   |------------------------------------------------|-----------   |-------------------------|
+| Dump Folder     | The path where dump files will be stored.      |REG_EXPAND_SZ	|%LOCALAPPDATA%\CrashDumps|
+| DumpCount       | Max. number of the dump files in folder.       |REG_DWORD     |    10                   |
+| DumpType        | Type of dump file. 2 is Full dump.             |REG_DWORD     |    1                    |
+| CustomDumpFlags | Custom dump options.                           |REG_DWORD     |MiniDumpWithDataSegs, MiniDumpWithUnloadedModules, MiniDumpWithProcessThreadData.|
+
+- Locate and delete following registry entries.
+```
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AeDebug\Debugger
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\DbgManagedDebugger
+HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\AeDebug\Debugger
+HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\.NETFramework\DbgManagedDebugger
+```
 
 
 ### Memory Leak
