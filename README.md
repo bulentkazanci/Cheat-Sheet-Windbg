@@ -4,8 +4,8 @@ A practical guide to analyze memory dumps of .Net applications by using Windbg.
 
 * [Environment](#environment)
 * [Dump Generation](#dump-generation)
-  * [Manual Dump Generation](#manual-dump-generation)
-  * [Automatic Dump Generation](#automatic-dump-generation)
+  * [Manual Dump Generation](#1-manual-dump-generation)
+  * [Automatic Dump Generation](#2-automatic-dump-generation)
 * [Memory Leak](#memory-leak)
   * [General Heap Check](#user-content-1-general-heap-check)
   * [Check Finalizer Queue and Finalizer Thread](#user-content-2-check-finalizer-queue-and-finalizer-thread)
