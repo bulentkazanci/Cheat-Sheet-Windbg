@@ -10,6 +10,7 @@ A practical guide to analyze memory dumps of .Net applications by using Windbg.
   * [General Heap Check](#user-content-1-general-heap-check)
   * [Check Finalizer Queue and Finalizer Thread](#user-content-2-check-finalizer-queue-and-finalizer-thread)
 * [Deadlocks](#deadlock)
+* [Static Class,Field etc. Access](#static-field-access)
 * [Command List](#command-list)
 * [Articles](#articles)
 
@@ -156,6 +157,25 @@ Sections in result
 
 
 
+### Static Field Access
+------
+ - List application domains.
+```
+!dumpdomain
+```
+- Delve into selected module
+```
+!dumpmodule  -mt [module identifier]
+```
+- Dump class
+```
+!dumpclass [class identifier]
+```
+- Get value of static field
+```
+!do [field identifier]
+```
+
 
 ### Command List
 ------
@@ -246,6 +266,10 @@ Example usage: `?e186fa28`
 - Lists modules loaded by application.
 ```
 lm
+```
+- Makes windbg more talkative - shows detailed messages
+```
+.srcnoisy 3
 ```
 ### Articles
 ------
