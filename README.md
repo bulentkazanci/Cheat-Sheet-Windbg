@@ -9,7 +9,7 @@ A practical guide to analyze memory dumps of .Net applications by using Windbg.
 * [Memory Leak](#memory-leak)
   * [General Heap Check](#user-content-1-general-heap-check)
   * [Check Finalizer Queue and Finalizer Thread](#user-content-2-check-finalizer-queue-and-finalizer-thread)
-* [High CPU Usage]()
+* [High CPU Usage](#high-cpu-usage)
 * [Deadlocks](#deadlock)
 * [Static Class,Field etc. Access](#static-field-access)
 * [Command List](#command-list)
