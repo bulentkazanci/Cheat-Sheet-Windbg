@@ -32,7 +32,7 @@ A practical guide to analyze memory dumps of .Net applications by using Windbg.
 There are multiple manners to generate dumps ranging from task manager and debug diagnostic. I prefer to use procdump for manual generation. To generate dump manually, follow instructions below.
 
 - Download procdump from this [link](https://docs.microsoft.com/en-us/sysinternals/downloads/procdump).
-- Run command prompt as administrator and swtich the path of procdump. Following is an example from my local.
+- Run command prompt as administrator and switch the path of procdump. Following is an example from my local.
 ```
 cd \BrkDev\Procdump
 ```
