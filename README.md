@@ -20,7 +20,9 @@ A practical guide to analyze memory dumps of .Net applications by using Windbg.
 - Install SOS.dll(Son of strike) to same path with WinDBG.
 - Install psscor4
 - Set symbol path 
-  - srv*d:\dumps\symbols*http://msdl.microsoft.com/download/symbols
+```
+.sympath srv*d:\dumps\symbols;https://msdl.microsoft.com/download/symbols
+```
 - Run command of .loadby sos clr to load sos.
 
 
