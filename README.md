@@ -156,6 +156,10 @@ Sections in result
 
 ### High CPU Usage
 ------
+- Check threadpool whether CPU utilization is greater than 80%. If it is greater, no more .Net thread will be created and Garbage Collector will run.
+```
+!threadpool
+```
 
 - Check uptime of threads
 ```
