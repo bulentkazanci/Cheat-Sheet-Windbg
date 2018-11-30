@@ -46,7 +46,7 @@ procdump -ma [process identifier] [folder path]
 
 #### 2. Automatic Dump Generation
 
-Sometimes it is not possible to find a change to collect dump before application crashes. Therefore, Windows Error Reporting can be configures so that dumps can be collected in a situation of crash; however, applications that handles their own custom crash reporting are not supported by this feature. Ultimately, in order to collect dumps automatically, follow the steps below.
+Sometimes it is not possible to find a chance to collect dump before application crashes. Therefore, Windows Error Reporting can be configured so that dumps can be collected in a situation of crash; however, applications handling their own custom crash reporting are not supported by this feature. Ultimately, in order to collect dumps automatically, follow the steps below.
 
 - Open Registery Editor(Regedit).
 - Go to following record.
